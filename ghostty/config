@@ -1,0 +1,16 @@
+cursor-opacity = 1
+cursor-style-blink = true
+shell-integration-features = no-cursor
+
+background-blur = true
+background-blur-radius = 20
+background-opacity = 0.8
+
+macos-titlebar-style = hidden
+macos-option-as-alt = true
+
+confirm-close-surface = false
+window-decoration = true
+window-padding-x = 5,5
+window-padding-y = 5,5
+keybind = shift+enter=text:\n

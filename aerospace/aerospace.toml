@@ -1,0 +1,205 @@
+config-version = 2
+
+after-login-command = []
+after-startup-command = []
+
+start-at-login = true
+
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+accordion-padding = 0
+
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+automatically-unhide-macos-hidden-apps = true
+
+exec-on-workspace-change = ['/bin/bash', '-c', 'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE && ~/.config/sketchybar/plugins/update_workspace_icons.sh']
+
+persistent-workspaces = ["Code", "Docs", "Browser", "Terminal", "Chat", "Utils", "Music"]
+# 워크스페이스별 모니터 지정
+[workspace-to-monitor-force-assignment]
+Code = 1
+Docs = 1
+Chat = 1
+Music = 1
+Utils = 1
+Browser = 1
+Terminal = 2
+
+[key-mapping]
+preset = 'qwerty'
+
+[gaps]
+inner.horizontal = 10
+inner.vertical = 10
+outer.bottom = 10
+outer.top = 6
+outer.right = 10
+outer.left= 10
+
+[mode.main.binding]
+# 워크스페이스 변경
+alt-1 = 'workspace Browser'
+alt-2 = 'workspace Docs'
+alt-3 = 'workspace Terminal'
+alt-4 = 'workspace Chat'
+alt-5 = 'workspace Utils'
+alt-6 = 'workspace Code'
+alt-7 = 'workspace Music'
+
+# 포커스창을 워크스페이스로 보내기
+alt-shift-1 = 'move-node-to-workspace Browser'
+alt-shift-2 = 'move-node-to-workspace Docs'
+alt-shift-3 = 'move-node-to-workspace Terminal'
+alt-shift-4 = 'move-node-to-workspace Chat'
+alt-shift-5 = 'move-node-to-workspace Utils'
+alt-shift-6 = 'move-node-to-workspace Code'
+alt-shift-7 = 'move-node-to-workspace Music'
+
+alt-b = 'exec-and-forget open -a /Applications/Brave\ Browser.app'
+alt-c = 'exec-and-forget open -a /Applications/Claude.app/'
+alt-g = 'exec-and-forget open -a /Applications/Ghostty.app'
+alt-s = 'exec-and-forget open -a /Applications/Slack.app'
+alt-d = 'exec-and-forget open -a /Applications/Discord.app'
+alt-o = 'exec-and-forget open -a /Applications/Obsidian.app'
+alt-n = 'exec-and-forget open -a /Applications/Notion.app'
+#alt-a = 'exec-and-forget open -a /Applications/ChatGPT.app'
+#alt-v = 'exec-and-forget open -a /Applications/Visual\ Studio\ Code.app/'
+#alt-p = 'exec-and-forget open -a /Applications/Adobe\ Premiere\ Pro\ 2025/Adobe\ Premiere\ Pro\ 2025.app/'
+#alt-o = 'exec-and-forget open -a /Applications/OBS.app/'
+alt-shift-r = ['exec-and-forget /opt/homebrew/bin/sketchybar --reload']
+
+# 창 분할
+alt-e = 'layout tiles horizontal vertical'
+alt-comma = 'layout accordion horizontal vertical'
+alt-f = 'fullscreen'
+alt-y = ['focus right', 'join-with down', 'layout tiles horizontal']
+
+# 포커스 이동
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+
+# 창 이동
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+# 창 사이즈 조절
+alt-shift-minus = 'resize smart -50'
+alt-shift-equal = 'resize smart +50'
+
+# 포커스창 버퍼간 전환
+alt-tab = 'workspace-back-and-forth'
+
+# 워크스페이스를 모니터로 보내기
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+# 서비스 모드
+alt-shift-semicolon = 'mode service'
+
+# 서비스 모드 키 바인딩
+[mode.service.binding]
+esc = ['reload-config', 'mode main']
+r = ['flatten-workspace-tree', 'mode main'] # reset layout
+f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
+backspace = ['close-all-windows-but-current', 'mode main']
+
+alt-shift-h = ['join-with left', 'mode main']
+alt-shift-j = ['join-with down', 'mode main']
+alt-shift-k = ['join-with up', 'mode main']
+alt-shift-l = ['join-with right', 'mode main']
+
+# 애플리케이션 기본 워크스페이스 지정
+[[on-window-detected]]
+if.app-id ='com.brave.Browser'
+run = ['move-node-to-workspace Browser']
+
+[[on-window-detected]]
+if.app-id ='com.brave.Browser.app.adcclpceapdbhchilkbngkehpppaefko'
+run = ['move-node-to-workspace Browser']
+
+[[on-window-detected]]
+if.app-id ='com.mitchellh.ghostty'
+run = ['move-node-to-workspace Terminal']
+
+[[on-window-detected]]
+if.app-id ='notion.id'
+run = ['move-node-to-workspace Docs']
+
+[[on-window-detected]]
+if.app-id ='md.obsidian'
+run = ['move-node-to-workspace Docs']
+
+[[on-window-detected]]
+if.app-id ='com.tinyspeck.slackmacgap'
+run = ['move-node-to-workspace Chat']
+
+[[on-window-detected]]
+if.app-id ='com.hnc.Discord'
+run = ['move-node-to-workspace Chat']
+
+[[on-window-detected]]
+if.app-id ='com.adobe.PremierePro.24'
+run = ['move-node-to-workspace Utils']
+
+[[on-window-detected]]
+if.app-id ='com.anthropic.claudefordesktop'
+run = ['move-node-to-workspace Terminal']
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'YouTube Music'
+run = ['move-node-to-workspace Music']
+
+# 플로팅 윈도우
+[[on-window-detected]]
+if.app-name-regex-substring = 'System Settings'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Finder'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'KakaoTalk'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Photos'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'App Store'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Preview'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Horo'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Notes'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'FaceTime'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Karabiner'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'AppCleaner'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.majimakHARU.GrabIt'
+run = 'layout floating'
