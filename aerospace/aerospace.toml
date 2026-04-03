@@ -42,29 +42,31 @@ outer.left= 10
 [mode.main.binding]
 # 워크스페이스 변경
 alt-1 = 'workspace Browser'
-alt-2 = 'workspace Docs'
+alt-2 = 'workspace Code'
 alt-3 = 'workspace Terminal'
 alt-4 = 'workspace Chat'
 alt-5 = 'workspace Utils'
-alt-6 = 'workspace Code'
+alt-6 = 'workspace Docs'
 alt-7 = 'workspace Music'
 
 # 포커스창을 워크스페이스로 보내기
 alt-shift-1 = 'move-node-to-workspace Browser'
-alt-shift-2 = 'move-node-to-workspace Docs'
+alt-shift-2 = 'move-node-to-workspace Code'
 alt-shift-3 = 'move-node-to-workspace Terminal'
 alt-shift-4 = 'move-node-to-workspace Chat'
 alt-shift-5 = 'move-node-to-workspace Utils'
-alt-shift-6 = 'move-node-to-workspace Code'
+alt-shift-6 = 'move-node-to-workspace Docs'
 alt-shift-7 = 'move-node-to-workspace Music'
 
-alt-b = 'exec-and-forget open -a /Applications/Brave\ Browser.app'
+alt-b = 'exec-and-forget open -a /Applications/Bear.app'
+alt-v = 'exec-and-forget open -a /Applications/Vivaldi.app/'
 alt-c = 'exec-and-forget open -a /Applications/Claude.app/'
 alt-g = 'exec-and-forget open -a /Applications/Ghostty.app'
 alt-s = 'exec-and-forget open -a /Applications/Slack.app'
 alt-d = 'exec-and-forget open -a /Applications/Discord.app'
 alt-o = 'exec-and-forget open -a /Applications/Obsidian.app'
 alt-n = 'exec-and-forget open -a /Applications/Notion.app'
+#alt-b = 'exec-and-forget open -a /Applications/Brave\ Browser.app'
 #alt-a = 'exec-and-forget open -a /Applications/ChatGPT.app'
 #alt-v = 'exec-and-forget open -a /Applications/Visual\ Studio\ Code.app/'
 #alt-p = 'exec-and-forget open -a /Applications/Adobe\ Premiere\ Pro\ 2025/Adobe\ Premiere\ Pro\ 2025.app/'
@@ -120,6 +122,10 @@ if.app-id ='com.brave.Browser'
 run = ['move-node-to-workspace Browser']
 
 [[on-window-detected]]
+if.app-id ='com.vivaldi.Vivaldi'
+run = ['move-node-to-workspace Browser']
+
+[[on-window-detected]]
 if.app-id ='com.brave.Browser.app.adcclpceapdbhchilkbngkehpppaefko'
 run = ['move-node-to-workspace Browser']
 
@@ -140,11 +146,23 @@ if.app-id ='com.tinyspeck.slackmacgap'
 run = ['move-node-to-workspace Chat']
 
 [[on-window-detected]]
+if.app-id ='com.kakao.KakaoTalkMac'
+run = ['move-node-to-workspace Chat']
+
+[[on-window-detected]]
 if.app-id ='com.hnc.Discord'
 run = ['move-node-to-workspace Chat']
 
 [[on-window-detected]]
+if.app-id ='com.creality.crealityprint'
+run = ['move-node-to-workspace Chat']
+
+[[on-window-detected]]
 if.app-id ='com.adobe.PremierePro.24'
+run = ['move-node-to-workspace Utils']
+
+[[on-window-detected]]
+if.app-id ='net.shinyfrog.bear'
 run = ['move-node-to-workspace Utils']
 
 [[on-window-detected]]
@@ -155,7 +173,23 @@ run = ['move-node-to-workspace Terminal']
 if.app-name-regex-substring = 'YouTube Music'
 run = ['move-node-to-workspace Music']
 
+[[on-window-detected]]
+if.app-id = 'com.google.antigravity'
+run = ['move-node-to-workspace Code']
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.VSCode'
+run = ['move-node-to-workspace Code']
+
 # 플로팅 윈도우
+[[on-window-detected]]
+if.app-id = 'com.pearlabyss.CrimsonDesert'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.ActivityMonitor'
+run = 'layout floating'
+
 [[on-window-detected]]
 if.app-name-regex-substring = 'System Settings'
 run = 'layout floating'
