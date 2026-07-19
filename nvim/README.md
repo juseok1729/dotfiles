@@ -11,11 +11,12 @@
 ├── lua/
 │   ├── config/
 │   │   ├── lazy.lua            # lazy.nvim 부트스트랩 및 설정
-│   │   ├── options.lua         # 추가 옵션 (현재 LazyVim 기본값 사용)
-│   │   ├── keymaps.lua         # 추가 키맵 (현재 LazyVim 기본값 사용)
-│   │   └── autocmds.lua        # 추가 autocmd (현재 LazyVim 기본값 사용)
+│   │   ├── options.lua         # updatetime 등 추가 옵션
+│   │   ├── keymaps.lua         # K 호버 키맵 오버라이드
+│   │   └── autocmds.lua        # 커서 호버 자동 표시 autocmd
 │   └── plugins/
-│       └── colorscheme.lua     # tokyonight 커스터마이징
+│       ├── colorscheme.lua     # tokyonight 커스터마이징
+│       └── noice.lua           # 호버 문서 테두리 + 알림 필터
 ├── lazy-lock.json              # 플러그인 버전 락파일 (커밋 대상)
 ├── lazyvim.json                # LazyVim extras 선언 (lang.go, lang.python 활성화)
 ├── stylua.toml                 # Lua 포매터 설정 (2칸 들여쓰기, 120자)
@@ -35,15 +36,34 @@ extras 추가/제거는 `:LazyExtras` UI를 쓰거나 `lazyvim.json`의 `extras`
 
 ## 커스터마이징 내역
 
-LazyVim 기본값에서 변경한 부분은 컬러스킴뿐입니다 (`lua/plugins/colorscheme.lua`):
+### 컬러스킴 (`lua/plugins/colorscheme.lua`)
 
 - **tokyonight** 테마에 투명 배경 적용 (`transparent = true`, 사이드바/플로팅 창 포함)
 - `CursorLine`: 배경색 대신 밑줄로 표시
 - `CursorLineNr`: 흰색 볼드
 - `Visual`: 반전(reverse) 스타일
 
-`lua/config/` 아래의 options / keymaps / autocmds는 아직 LazyVim 기본값 그대로입니다.
-기본값 목록은 각 파일 상단 주석의 LazyVim 소스 링크를 참고하세요.
+### VSCode 스타일 자동 호버
+
+함수/변수 위에 커서를 올려두면 0.5초 뒤 문서 팝업이 자동으로 뜹니다.
+세 파일에 나뉘어 구현되어 있습니다:
+
+- `lua/config/options.lua` — `updatetime = 500` (호버 발동 대기시간)
+- `lua/config/autocmds.lua` — LSP attach된 버퍼에서 `CursorHold` 시
+  `vim.lsp.buf.hover()` 자동 호출
+- `lua/config/keymaps.lua` — `K` 수동 호버도 자동 호버와 동일한
+  둥근 테두리를 쓰도록 오버라이드
+
+### noice 설정 (`lua/plugins/noice.lua`)
+
+LazyVim에서는 noice.nvim이 LSP 호버 렌더링을 담당하므로 테두리도 noice에서 설정합니다:
+
+- `presets.lsp_doc_border = true` — 호버/시그니처 문서 창에 둥근 테두리
+- "No information available" 알림 숨김 라우트 — 자동 호버가 키워드·공백
+  위에서 발동할 때 뜨는 불필요한 알림 제거
+
+LazyVim 기본 options / keymaps / autocmds 목록은 `lua/config/` 각 파일
+상단 주석의 LazyVim 소스 링크를 참고하세요.
 
 ## 주요 플러그인
 
