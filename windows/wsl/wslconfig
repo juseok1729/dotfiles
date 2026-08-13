@@ -1,0 +1,4 @@
+[wsl2]
+vmIdleTimeout = -1
+memory = 8GB
+swap = 0
